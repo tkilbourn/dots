@@ -1,0 +1,7 @@
+map <F2> :tabp <CR>
+map <F3> :tabn <CR>
+map <C-t> :tabnew <CR>
+imap {} {<CR>}<Esc>O
+nnoremap <silent> <Space> @=(foldlevel('.')?'za':'l')<CR>
+vnoremap <Space> zf
+map <C-L> /^.\{81}/e<CR>

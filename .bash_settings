@@ -1,0 +1,38 @@
+
+# prompt
+use_color=false
+safe_term=${TERM//[^[:alnum:]]/?}
+if [[ -f /etc/DIR_COLORS ]] ; then
+  match_lhs=$(</etc/DIR_COLORS)
+  elif type -p dircolors >/dev/null ; then
+  match_lhs=$(dircolors --print-database)
+  else
+  match_lhs=""
+fi
+[[ $'\n'${match_lhs} == *$'\n'"TERM "${safe_term}* ]] && use_color=true
+
+if ${use_color} ; then
+  export PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\] \$ '
+else
+  export PS1='\u@\h:\w \$ '
+fi
+
+# history settings
+HISTIGNORE='&:ls:v:[bf]g:cd:cd *:exit'
+HISTCONTROL=ignoreboth
+HISTSIZE=1024
+shopt -s histreedit
+shopt -s histverify
+
+# bash completion
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
+
+# misc settings
+set -o vi
+shopt -s checkwinsize

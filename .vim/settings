@@ -1,0 +1,21 @@
+set number
+set numberwidth=5
+set laststatus=2
+set statusline=%F%m%r%h%w\ %=%-20.(l\ %-5l%=c\ %-4c%=lines\ %-4L%)\ %=%-40(hex\ 0x%B%)\ %P
+set showmode
+set cursorline
+set pastetoggle=<F5>
+set showtabline=2
+set diffopt=filler,horizontal
+set wildmenu
+set wildmode=list:longest,full
+set tags=tags
+set tags+=/home/tkilbourn/g3_tags
+"set completeopt=menu
+set nocp
+set foldmethod=indent
+set nofoldenable
+let OmniCpp_LocalSearchDecl=1
+
+autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif

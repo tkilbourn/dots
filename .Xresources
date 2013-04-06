@@ -1,0 +1,13 @@
+URxvt.scrollBar: false
+URxvt.saveLines: 1024
+URxvt.background: black
+URxvt.foreground: white
+XTerm*saveLines: 1024
+XTerm*background: black
+XTerm*foreground: white
+XTerm*scrollbar: false
+XTerm*geometry: 85x57
+!XTerm*scrollTtyOutput: false
+!XTerm*scrollKey: true
+XTerm*.ScrollCond.scrollTtyOutput: off
+XTerm*.ScrollCond.scrollKey: on
