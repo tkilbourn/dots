@@ -1,14 +1,14 @@
 set t_Co=256
-source /home/${USER}/.vim/functions
-syntax on
-if exists("/usr/share/vim/google/google.vim")
-  source /usr/share/vim/google/google.vim
+
+if exists("/home/${USER}/.vim/pre-local")
+  source /home/${USER}/.vim/pre-local
 endif
 
-if !exists("dontcolor")
-  source /home/${USER}/.vim/settings
-  source /home/${USER}/.vim/colors
-endif
+source /home/${USER}/.vim/settings
+source /home/${USER}/.vim/functions
+source /home/${USER}/.vim/colors
 source /home/${USER}/.vim/mappings
 
-unlet! dontcolor
+if exists("/home/${USER}/.vim/post-local")
+  source /home/${USER}/.vim/post-local
+endif
