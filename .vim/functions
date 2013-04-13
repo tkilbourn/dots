@@ -6,11 +6,11 @@ function! HighlightTooLongLines()
 endfunction
 
 function! AndroidCodingStyle()
-  set shiftwidth=4
-  set textwidth=80
+  setlocal shiftwidth=4
+  setlocal textwidth=80
 endfunction
 
 augroup filetypedetect
-au BufNewFile,BufRead */git/android/* call AndroidCodingStyle()
+au BufNewFile,BufRead /android/* call AndroidCodingStyle()
 au BufNewFile,BufRead * call HighlightTooLongLines()
 augroup END
