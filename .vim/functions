@@ -11,6 +11,6 @@ function! AndroidCodingStyle()
 endfunction
 
 augroup filetypedetect
-au BufNewFile,BufRead /android/* call AndroidCodingStyle()
+au BufNewFile,BufRead */android/* call AndroidCodingStyle()
 au BufNewFile,BufRead * call HighlightTooLongLines()
 augroup END
