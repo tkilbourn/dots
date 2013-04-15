@@ -6,6 +6,7 @@ import XMonad.Layout.Grid
 import XMonad.Layout.ShowWName
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeys)
+import System.Environment(getEnv)
 import System.IO
 
 myBorderWidth = 2
@@ -26,10 +27,11 @@ myLogHook p = dynamicLogWithPP $ xmobarPP
     , ppTitle = xmobarColor "green" "" . shorten 50
     }
 
-runXmobar = "xmobar /home/tkilbourn/.xmobarrc"
+runXmobar home = "xmobar " ++ home ++ "/.xmobarrc"
 
 main = do
-    xmproc <- spawnPipe runXmobar
+    myHome <- getEnv "HOME"
+    xmproc <- spawnPipe $ runXmobar myHome
     xmonad $ defaultConfig
         { manageHook = myManageHook
         , borderWidth = myBorderWidth
