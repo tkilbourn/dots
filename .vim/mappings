@@ -1,6 +1,16 @@
-nmap <F2> :tabp <CR>
-nmap <F3> :tabn <CR>
-nmap <C-t> :tabnew <CR>
-imap {} {<CR>}<Esc>O
+let mapleader = ","
+
+nnoremap <F2> :tabp <CR>
+nnoremap <F3> :tabn <CR>
+nnoremap <C-t> :tabnew <CR>
+inoremap {} {<CR>}<Esc>O
 nnoremap <C-L> /^.\{81}/e<CR>
 nnoremap Y y$
+
+nnoremap <leader>em :vsplit $HOME/.vim/mappings<cr>
+nnoremap <leader>sm :source $HOME/.vim/mappings<cr>
+
+nnoremap <leader>ec :vsplit $HOME/.vim/colors<cr>
+nnoremap <leader>sc :source $HOME/.vim/colors<cr>
+
+iabbrev teh the

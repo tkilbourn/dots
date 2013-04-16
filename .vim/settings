@@ -4,6 +4,7 @@ set ruler
 
 set hidden
 set backspace=indent,eol,start
+set wrap
 
 set autoindent
 set nocindent
@@ -43,4 +44,4 @@ set wildmode=list:longest,full
 set scrolloff=2
 
 set ttimeoutlen=-1
-set timeoutlen=250
+set timeoutlen=500
