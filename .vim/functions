@@ -1,10 +1,3 @@
-function! HighlightTooLongLines()
-  highlight def link RightMargin Error
-  if &textwidth != 0
-    exec 'match RightMargin /\%<' . (&textwidth + 4) . 'v.\%>' . (&textwidth + 2) . 'v/'
-  endif
-endfunction
-
 function! AndroidCodingStyle()
   setlocal shiftwidth=4
   setlocal textwidth=80
@@ -12,5 +5,4 @@ endfunction
 
 augroup filetypedetect
 au BufNewFile,BufRead */android/* call AndroidCodingStyle()
-au BufNewFile,BufRead * call HighlightTooLongLines()
 augroup END
