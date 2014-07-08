@@ -20,7 +20,8 @@ fi
 # history settings
 HISTIGNORE='&:ls:v:[bf]g:cd:cd *:exit'
 HISTCONTROL=ignoreboth
-HISTSIZE=1024
+HISTSIZE=65536
+shopt -s histappend
 shopt -s histreedit
 shopt -s histverify
 
