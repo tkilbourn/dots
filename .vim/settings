@@ -34,6 +34,7 @@ set statusline=%F%m%r%h%w\ %=%-20.(l\ %-5l%=c\ %-4c%=lines\ %-4L%)\ %=%-40(hex\ 
 set showmode
 set showcmd
 set cursorline
+set colorcolumn=+1
 
 set pastetoggle=<F5>
 set showtabline=2
