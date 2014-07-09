@@ -1,6 +1,7 @@
 import XMonad
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.SetWMName
 import XMonad.Layout
 import XMonad.Layout.Grid
 import XMonad.Layout.ShowWName
@@ -27,6 +28,8 @@ myLogHook p = dynamicLogWithPP $ xmobarPP
     , ppTitle = xmobarColor "green" "" . shorten 50
     }
 
+myStartupHook = setWMName "LG3D"
+
 runXmobar home = "xmobar " ++ home ++ "/.xmobarrc"
 
 main = do
@@ -39,6 +42,7 @@ main = do
         , workspaces = myWorkspaces
         , layoutHook = myLayoutHook
         , logHook = myLogHook xmproc
+        , startupHook = myStartupHook
         } `additionalKeys`
         [ ((mod4Mask, xK_Escape), spawn "gnome-screensaver-command -l")
         ]
