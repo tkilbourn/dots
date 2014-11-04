@@ -13,4 +13,6 @@ highlight Pmenu cterm=NONE ctermfg=231 ctermbg=238
 highlight PmenuSel cterm=BOLD ctermfg=226 ctermbg=234
 highlight Locking term=standout ctermfg=Yellow ctermbg=Blue
 
+highlight clear SignColumn
+
 2match Locking /\(Reader\|Writer\|\)MutexLock \w\+([^(]\+)\|\.Lock()\|\.Unlock()/
