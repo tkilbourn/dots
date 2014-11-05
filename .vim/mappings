@@ -8,6 +8,8 @@ nnoremap <C-L> /^.\{81}/e<CR>
 nnoremap Y y$
 
 nnoremap <leader>t :TagbarToggle<CR>
+nnoremap <leader>h <C-W>h
+nnoremap <leader>l <C-W>l
 
 nnoremap <leader>em :vsplit $HOME/.vim/mappings<cr>
 nnoremap <leader>sm :source $HOME/.vim/mappings<cr>
