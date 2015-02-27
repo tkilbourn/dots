@@ -6,7 +6,7 @@ import XMonad.Layout
 import XMonad.Layout.Grid
 import XMonad.Layout.ShowWName
 import XMonad.Util.Run(spawnPipe)
-import XMonad.Util.EZConfig(additionalKeys)
+import XMonad.Util.EZConfig(additionalKeysP)
 import System.Environment(getEnv)
 import System.IO
 
@@ -16,7 +16,7 @@ myWorkspaces = ["Browser"] ++ map show [2..6]
 
 myManageHook = manageDocks <+> manageHook defaultConfig
 
-myLayoutHook = showWName $ avoidStruts (tiled ||| Full ||| Grid)
+myLayoutHook = showWName $ avoidStruts (Grid ||| Full ||| tiled)
     where
         tiled = Tall nmaster delta ratio
         nmaster = 1
@@ -43,7 +43,8 @@ main = do
         , layoutHook = myLayoutHook
         , logHook = myLogHook xmproc
         , startupHook = myStartupHook
-        } `additionalKeys`
-        [ ((mod4Mask, xK_Escape), spawn "gnome-screensaver-command -l")
+        } `additionalKeysP`
+        [ ("M4-<Esc>", spawn "gnome-screensaver-command -l")
+        , ("<XF86Sleep>", spawn "gnome-screensaver-command -l")
         ]
 
