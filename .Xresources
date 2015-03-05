@@ -1,7 +1,3 @@
-URxvt.scrollBar: false
-URxvt.saveLines: 1024
-URxvt.background: black
-URxvt.foreground: white
 XTerm*saveLines: 1024
 XTerm*background: black
 XTerm*foreground: white

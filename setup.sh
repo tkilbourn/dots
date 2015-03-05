@@ -4,7 +4,7 @@
 pushd $HOME
 
 # homedir files
-home_files=(.bash_aliases .bash_exports .bash_profile .bashrc .bash_settings .inputrc .vimrc .xmobarrc .xmobarrc-laptop .Xresources)
+home_files=(.bash_aliases .bash_exports .bash_functions .bash_profile .bashrc .bash_settings .inputrc .vimrc .xmobarrc .xmobarrc-laptop .Xresources)
 for f in "${home_files[@]}"
 do
     if [ -e $f ]
