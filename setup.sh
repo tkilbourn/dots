@@ -17,6 +17,7 @@ do
 done
 
 mkdir -p .zsh
+ln -sf $HOME/dots/.zsh/completion .zsh/completion
 ln -sf $HOME/dots/.zsh/functions .zsh/functions
 
 # xmonad files

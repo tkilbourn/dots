@@ -1,0 +1,17 @@
+#compdef repo
+
+# TODO: make repo completion awesome
+#_repo() {
+#    local curcontext="$curcontext" state line
+#    typeset -A opt_args
+#
+#    _arguments \
+#        '1: :->comm'
+#
+#    case $state in
+#    abandon)
+#        
+#}
+
+# for now, just autocomplete on repo command names
+_arguments "1: :(abandon branches init prune rebase start status sync upload)"

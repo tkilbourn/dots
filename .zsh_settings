@@ -16,6 +16,7 @@ setopt hist_verify
 #setopt inc_append_history
 
 # command completion
+fpath=(~/.zsh/completion $fpath)
 autoload -Uz compinit
 compinit
 
