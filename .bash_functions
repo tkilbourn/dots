@@ -8,3 +8,14 @@ function akill() {
         return 1
     fi
 }
+
+function aopen() {
+    FILE=$(echo $1 | cut -d: -f1)
+    LINE=$(echo $1 | cut -d: -f2 -s)
+
+    if [ "z"$LINE != "z" ]; then
+        vi +${LINE} ${FILE}
+    else
+        vi $@
+    fi
+}

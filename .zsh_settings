@@ -43,6 +43,14 @@ setopt no_bg_nice
 setopt notify
 setopt hup
 setopt auto_cd
+setopt extended_glob
 setopt glob_dots
+setopt no_beep
 setopt no_correct
 setopt dvorak
+
+# Uncomment to get traditional word splitting
+# setopt shwordsplit
+
+# Uncomment to get zero-based arrays
+# setopt ksharrays

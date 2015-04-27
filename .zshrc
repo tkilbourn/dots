@@ -17,6 +17,10 @@ if [ -r ~/.zsh_settings ]; then
     . ~/.zsh_settings
 fi
 
+if [ -r ~/.zsh_functions ]; then
+    . ~/.zsh_functions
+fi
+
 if [ -r ~/.zsh_local ]; then
     . ~/.zsh_local
 fi

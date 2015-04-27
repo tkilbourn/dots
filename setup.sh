@@ -6,7 +6,7 @@ pushd $HOME
 # homedir files
 home_files=(.bash_aliases .bash_exports .bash_functions .bash_profile .bashrc \
     .bash_settings .inputrc .vimrc .xmobarrc .xmobarrc-laptop .Xresources \
-    .zsh_aliases .zsh_exports .zshrc .zsh_settings)
+    .zsh_aliases .zsh_exports .zsh_functions .zshrc .zsh_settings)
 for f in "${home_files[@]}"
 do
     if [ -e $f ]
@@ -15,6 +15,9 @@ do
     fi
     ln -sf dots/$f
 done
+
+mkdir -p .zsh
+ln -sf $HOME/dots/.zsh/functions .zsh/functions
 
 # xmonad files
 if [ -e .xmonad/xmonad.hs ]
