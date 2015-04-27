@@ -1,6 +1,11 @@
 # prompt
+setopt prompt_subst
+. ~/git-prompt.sh
+GIT_PS1_SHOWDIRTYSTATE=true
+GIT_PS1_SHOWUNTRACKEDFILES=true
 PROMPT='%B%F{green}%n@%2m%f %F{blue}%~%f
 %h %#%b '
+RPROMPT=$'%B%F{yellow}$(__git_ps1 "git: %s")%f%b'
 
 # history settings
 HISTSIZE=65536
