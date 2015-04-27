@@ -1,0 +1,8 @@
+alias v='ls --color=auto -Fal'
+alias cp='nocorrect cp -v'
+alias mv='nocorrect mv -v'
+alias vi='nocorrect vi -p'
+
+# Send Android input events from the commandline over adb
+alias akey='adb shell input keyevent'
+alias atext='adb shell input text'

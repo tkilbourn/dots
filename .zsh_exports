@@ -1,0 +1,2 @@
+export LESS='-i -s -Ps"?f%f .?m(%i/%m). %lt-%lb?L/%L. ?e(END)'
+
