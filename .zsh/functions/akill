@@ -1,0 +1,8 @@
+CMDS=$(adb shell ps | grep $1)
+LINES=$(echo ${CMDS} | wc -l)
+if [[ $LINES == 1 ]]; then
+    adb shell kill $(echo ${CMDS} | awk '{print $2}')
+else
+    echo "Command to kill was not found or was ambiguous."
+    return 1
+fi

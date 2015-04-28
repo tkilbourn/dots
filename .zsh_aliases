@@ -7,3 +7,8 @@ alias ...='../..'
 # Send Android input events from the commandline over adb
 alias akey='adb shell input keyevent'
 alias atext='adb shell input text'
+
+alias -s h='vi -p'
+alias -s cpp='vi -p'
+alias -s java='vi -p'
+alias -s mk='vi -p'
