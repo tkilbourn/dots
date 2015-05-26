@@ -1,5 +1,6 @@
 import XMonad
 import XMonad.Hooks.DynamicLog
+import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.SetWMName
 import XMonad.Layout
@@ -30,13 +31,16 @@ myLogHook p = dynamicLogWithPP $ xmobarPP
 
 myStartupHook = setWMName "LG3D"
 
+myHandleEventHook = handleEventHook defaultConfig <+> fullscreenEventHook
+
 runXmobar home = "xmobar " ++ home ++ "/.xmobarrc"
 
 main = do
     myHome <- getEnv "HOME"
     xmproc <- spawnPipe $ runXmobar myHome
-    xmonad $ defaultConfig
-        { manageHook = myManageHook
+    xmonad $ ewmh defaultConfig
+        { handleEventHook = myHandleEventHook
+        , manageHook = myManageHook
         , borderWidth = myBorderWidth
         , terminal = myTerminal
         , workspaces = myWorkspaces
