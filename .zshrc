@@ -21,6 +21,10 @@ if [ -r ~/.zsh_functions ]; then
     . ~/.zsh_functions
 fi
 
+if [ -r ~/.zsh_plugins ]; then
+    . ~/.zsh_plugins
+fi
+
 if [ -r ~/.zsh_local ]; then
     . ~/.zsh_local
 fi

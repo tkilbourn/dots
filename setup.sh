@@ -6,7 +6,8 @@ pushd $HOME
 # homedir files
 home_files=(.bash_aliases .bash_exports .bash_functions .bash_profile .bashrc \
     .bash_settings .inputrc .vimrc .xmobarrc .xmobarrc-laptop .Xresources \
-    .zsh_aliases .zsh_exports .zsh_functions .zshrc .zsh_settings git-prompt.sh)
+    .zsh_aliases .zsh_exports .zsh_functions .zsh_plugins .zshrc .zsh_settings \
+    git-prompt.sh)
 for f in "${home_files[@]}"
 do
     if [[ -e $f ]]; then
