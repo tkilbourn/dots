@@ -21,6 +21,7 @@ done
 mkdir -p .zsh
 ln -sf $HOME/dots/.zsh/completion .zsh/
 ln -sf $HOME/dots/.zsh/functions .zsh/
+ln -sf $HOME/dots/.zsh/plugins .zsh/
 
 # xmonad files
 if [[ -e .xmonad/xmonad.hs ]]; then
