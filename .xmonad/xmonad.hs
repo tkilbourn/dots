@@ -35,19 +35,21 @@ myHandleEventHook = handleEventHook defaultConfig <+> fullscreenEventHook
 
 runXmobar home = "xmobar " ++ home ++ "/.xmobarrc"
 
+myConf p = ewmh defaultConfig
+    { handleEventHook = myHandleEventHook
+    , manageHook = myManageHook
+    , borderWidth = myBorderWidth
+    , terminal = myTerminal
+    , workspaces = myWorkspaces
+    , layoutHook = myLayoutHook
+    , logHook = myLogHook p
+    }
 main = do
     myHome <- getEnv "HOME"
     xmproc <- spawnPipe $ runXmobar myHome
-    xmonad $ ewmh defaultConfig
-        { handleEventHook = myHandleEventHook
-        , manageHook = myManageHook
-        , borderWidth = myBorderWidth
-        , terminal = myTerminal
-        , workspaces = myWorkspaces
-        , layoutHook = myLayoutHook
-        , logHook = myLogHook xmproc
-        , startupHook = myStartupHook
-        } `additionalKeysP`
+    xmonad $ (myConf xmproc) {
+        startupHook = startupHook (myConf xmproc) >> myStartupHook
+    }`additionalKeysP`
         [ ("M4-<Esc>", spawn "gnome-screensaver-command -l")
         , ("<XF86Sleep>", spawn "gnome-screensaver-command -l")
         ]
