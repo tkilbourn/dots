@@ -48,3 +48,4 @@ set ttimeoutlen=-1
 set timeoutlen=500
 
 let g:gitgutter_sign_column_always = 1
+let g:linuxsty_patterns = [ "/kernel/" ]
