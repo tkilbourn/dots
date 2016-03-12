@@ -1,5 +1,17 @@
 #!/bin/bash
 
+set_git_config() {
+    local gitconfig=$1
+    local key=$2
+    local prompt=$3
+
+    git config -f $gitconfig --get $key >/dev/null
+    if [[ $? -ne 0 ]]; then
+        read -p $prompt VAL
+        git config -f $gitconfig --add $key "$VAL"
+    fi
+}
+
 # go home
 pushd $HOME
 
@@ -7,7 +19,7 @@ pushd $HOME
 home_files=(.bash_aliases .bash_exports .bash_functions .bash_profile .bashrc \
     .bash_settings .inputrc .vimrc .xmobarrc .xmobarrc-laptop .Xresources \
     .zsh_aliases .zsh_exports .zsh_functions .zsh_plugins .zshrc .zsh_settings \
-    git-prompt.sh)
+    git-prompt.sh .gitconfig)
 for f in "${home_files[@]}"
 do
     if [[ -e $f ]]; then
@@ -18,6 +30,11 @@ do
     fi
     ln -sf dots/$f
 done
+
+# Set up local gitconfig if it doesn't exist already
+LOCAL_GITCONFIG=$HOME/.gitconfig_local
+set_git_config $LOCAL_GITCONFIG user.name "Name: "
+set_git_config $LOCAL_GITCONFIG user.email "Email: "
 
 mkdir -p .zsh
 ln -sf $HOME/dots/.zsh/completion .zsh/

@@ -1,4 +1,4 @@
 export EDITOR=vi
 export ignoreeof=0
-export LESS='-i -s -Ps"?f%f .?m(%i/%m). %lt-%lb?L/%L. ?e(END)'
+export LESS='-R -F -X -i -s -Ps"?f%f .?m(%i/%m). %lt-%lb?L/%L. ?e(END)'
 export PATH="$HOME/local/bin:$PATH"

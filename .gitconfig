@@ -1,0 +1,12 @@
+[color]
+	ui = auto
+
+[include]
+	path = .gitconfig_local
+
+[alias]
+	co = checkout
+	br = branch
+	last = log -1 HEAD
+[core]
+	editor = vim
