@@ -52,10 +52,13 @@ mkdir -p .xmonad
 ln -sf $HOME/dots/.xmonad/xmonad.hs .xmonad/xmonad.hs
 
 # vim files
-vim_files=(colors functions mappings settings)
+vim_files=(colors ftdetect functions mappings settings syntax)
 mkdir -p .vim
 for f in "${vim_files[@]}"
 do
+    if [[ -d .vim/$f ]]; then
+        mv .vim/$f .vim/$f.old
+    fi
     if [[ -e .vim/$f ]]; then
         diff .vim/$f dots/.vim/$f > /dev/null
         if [[ $? != 0 ]]; then
