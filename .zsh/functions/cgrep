@@ -1,0 +1,1 @@
+find . -name .git -prune -o -type f \( -name '*.c' -o -name '*.cpp' -o -name '*.cc' -o -name '*.h' -o -name '*.hpp' \) -exec grep -H -n "$@" {} \;
