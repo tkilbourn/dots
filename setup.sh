@@ -52,7 +52,7 @@ mkdir -p .xmonad
 ln -sf $HOME/dots/.xmonad/xmonad.hs .xmonad/xmonad.hs
 
 # vim files
-vim_files=(colors ftdetect functions mappings settings syntax)
+vim_files=(colors ftdetect ftplugin functions mappings settings syntax)
 mkdir -p .vim
 for f in "${vim_files[@]}"
 do
