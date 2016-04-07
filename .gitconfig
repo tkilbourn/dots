@@ -6,7 +6,10 @@
 
 [alias]
 	co = checkout
+        cp = cherry-pick
 	br = branch
 	last = log -1 HEAD
 [core]
 	editor = vim
+[push]
+	default = simple
