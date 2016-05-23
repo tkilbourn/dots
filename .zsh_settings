@@ -11,14 +11,14 @@ RPROMPT=$'%B%F{yellow}$(__git_ps1 "git: %s")%f%b'
 HISTSIZE=65536
 SAVEHIST=65536
 HISTFILE=~/.zsh_history
-setopt append_history
 setopt hist_ignore_dups
 setopt hist_ignore_space
 setopt hist_no_store
 setopt hist_reduce_blanks
 setopt hist_save_no_dups
 setopt hist_verify
-#setopt inc_append_history
+#setopt append_history
+setopt inc_append_history
 
 # command completion
 fpath=(~/.zsh/completion $fpath)
