@@ -1,4 +1,5 @@
 set t_Co=256
+set background=light
 
 if filereadable($HOME . "/.vim/pre-local")
   source $HOME/.vim/pre-local
