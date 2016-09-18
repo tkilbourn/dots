@@ -15,9 +15,12 @@ myBorderWidth = 2
 myTerminal = "xterm"
 myWorkspaces = ["Browser"] ++ map show [2..6]
 
-myManageHook = manageDocks <+> manageHook defaultConfig
+myManageHook = composeAll
+                    [ manageDocks
+                    , manageHook defaultConfig
+                    , className =? "qemu-system-x86_64" --> doFloat ]
 
-myLayoutHook = showWName $ avoidStruts (Grid ||| Full ||| tiled)
+myLayoutHook = showWName $ avoidStruts (tiled ||| Full ||| Grid)
     where
         tiled = Tall nmaster delta ratio
         nmaster = 1
