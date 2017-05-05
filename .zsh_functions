@@ -3,3 +3,5 @@ fpath=(~/.zsh/functions $fpath)
 autoload -U akill
 autoload -U aopen
 autoload -U cgrep
+autoload -U mkgrep
+autoload -U gogrep

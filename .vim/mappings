@@ -4,7 +4,7 @@ nnoremap <F2> :tabp <CR>
 nnoremap <F3> :tabn <CR>
 nnoremap <C-t> :tabnew <CR>
 inoremap {} {<CR>}<Esc>O
-nnoremap <C-L> /^.\{81}/e<CR>
+nnoremap <C-L> /^.\{101}/e<CR>
 nnoremap Y y$
 
 nnoremap <leader>t :TagbarToggle<CR>

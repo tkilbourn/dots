@@ -16,7 +16,7 @@ set shiftwidth=4
 set shiftround
 set softtabstop=2
 set expandtab
-set textwidth=80
+set textwidth=100
 
 let is_bash=1
 let java_allow_cpp_keywords=1
@@ -38,6 +38,7 @@ set colorcolumn=+1
 
 set pastetoggle=<F5>
 set showtabline=2
+set tabpagemax=25
 set display+=lastline
 set diffopt=filler,horizontal
 set wildmenu
@@ -48,4 +49,4 @@ set ttimeoutlen=-1
 set timeoutlen=500
 
 let g:gitgutter_sign_column_always = 1
-let g:linuxsty_patterns = [ "/kernel/" ]
+let g:linuxsty_patterns = [ "/linux/kernel/" ]
