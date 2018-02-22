@@ -1,2 +1,2 @@
 export LESS='-R -F -X -i -s -Ps"?f%f .?m(%i/%m). %lt-%lb?L/%L. ?e(END)'
-
+export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
