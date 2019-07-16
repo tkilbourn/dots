@@ -9,7 +9,8 @@ execute pathogen#infect()
 
 source $HOME/.vim/settings
 source $HOME/.vim/functions
-source $HOME/.vim/colors
+"source $HOME/.vim/colors/tkilbourn.vim
+source $HOME/.vim/colors/Tomorrow-Night-Bright.vim
 source $HOME/.vim/mappings
 
 if filereadable($HOME . "/.vim/post-local")

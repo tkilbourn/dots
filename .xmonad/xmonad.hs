@@ -53,7 +53,7 @@ main = do
     xmonad $ (myConf xmproc) {
         startupHook = startupHook (myConf xmproc) >> myStartupHook
     }`additionalKeysP`
-        [ ("M4-<Esc>", spawn "gnome-screensaver-command -l")
-        , ("<XF86Sleep>", spawn "gnome-screensaver-command -l")
+        [ ("M4-<Esc>", spawn "xscreensaver-command -lock")
+        , ("<XF86Sleep>", spawn "xscreensaver-command -lock")
         ]
 
