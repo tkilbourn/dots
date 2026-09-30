@@ -17,7 +17,7 @@ pushd $HOME
 
 # homedir files
 home_files=(.bash_aliases .bash_exports .bash_functions .bash_profile .bashrc \
-    .bash_settings .inputrc .vimrc .xmobarrc .xmobarrc-laptop .Xresources \
+    .bash_settings .inputrc .vimrc .Xresources \
     .zsh_aliases .zsh_exports .zsh_functions .zsh_plugins .zshrc .zsh_settings \
     git-prompt.sh .gitconfig .ripgreprc)
 for f in "${home_files[@]}"
@@ -40,16 +40,6 @@ mkdir -p .zsh
 ln -sf $HOME/dots/.zsh/completion .zsh/
 ln -sf $HOME/dots/.zsh/functions .zsh/
 ln -sf $HOME/dots/.zsh/plugins .zsh/
-
-# xmonad files
-if [[ -e .xmonad/xmonad.hs ]]; then
-    diff .xmonad/xmonad.hs dots/.xmonad/xmonad.hs > /dev/null
-    if [[ $? != 0 ]]; then
-        cp .xmonad/xmonad.hs .xmonad/xmonad.hs.old
-    fi
-fi
-mkdir -p .xmonad
-ln -sf $HOME/dots/.xmonad/xmonad.hs .xmonad/xmonad.hs
 
 # vim files
 vim_files=(colors ftdetect ftplugin functions mappings settings syntax)
