@@ -61,9 +61,9 @@ rm -rf "$TMPDIR"
 mkdir -p "$TMPDIR"
 trap 'rm -rf "$TMPDIR"' EXIT
 
-step "1. Prerequisite packages (curl, file, git >= 2.31, unzip)"
+step "1. Prerequisite packages (curl, file, git >= 2.31, unzip; uuidgen for fx metrics)"
 sudo env DEBIAN_FRONTEND=noninteractive NEEDRESTART_SUSPEND=1 \
-    apt-get install -y -o DPkg::Lock::Timeout=600 curl file git unzip
+    apt-get install -y -o DPkg::Lock::Timeout=600 curl file git unzip uuid-runtime
 git_version=$(git --version | awk '{print $3}')
 if [[ "$(printf '%s\n' 2.31 "$git_version" | sort -V | head -1)" != 2.31 ]]; then
     die "git $git_version is older than 2.31"
@@ -85,9 +85,13 @@ if [[ "$(uname -m)" == x86_64 ]]; then
     # Its findings are advice; report them but carry on.
     "$preflight_dir/ffx-linux-x64" platform preflight ||
         echo "(preflight reported problems; see above)"
+
+    step "Opt in to ffx analytics (per user, so it also covers the ffx a build makes)"
+    "$preflight_dir/ffx-linux-x64" config analytics enable
     rm -rf "$preflight_dir"
 else
-    echo "skipped: preflight only supports x64"
+    echo "skipped: preflight only supports x64 (and so does opting in to ffx"
+    echo "analytics here; after a build: ffx config analytics enable)"
 fi
 
 step "3. Download the source into $FUCHSIA_DIR"
@@ -97,9 +101,14 @@ curl -sSf "https://fuchsia.googlesource.com/fuchsia/+/HEAD/scripts/bootstrap?for
 # The Fuchsia bootstrap deletes bootstrap.sh itself when it exits.
 bash bootstrap.sh
 
-step "Opt in to jiri analytics (stops its warning on every update)"
+step "Opt in to jiri and fx analytics (stops their warnings)"
 # The bootstrap's own jiri update still warns, as the checkout did not exist yet.
 "$FUCHSIA_DIR/.jiri_root/bin/jiri" init -analytics-opt=true "$FUCHSIA_DIR"
+# fx keeps its own setting per checkout (in .fx/config/metrics).
+(
+    cd "$FUCHSIA_DIR"
+    PATH="$FUCHSIA_DIR/.jiri_root/bin:$PATH" fx metrics enable
+)
 
 step "4. Environment variables (in ~/.zsh_local, where this setup keeps them)"
 if ! grep -qs 'jiri_root/bin' ~/.zsh_local; then
