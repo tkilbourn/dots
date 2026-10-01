@@ -110,6 +110,9 @@ step "fd (Ubuntu names it fdfind)"
 mkdir -p ~/.local/bin
 ln -sf "$(command -v fdfind)" ~/.local/bin/fd
 
+step "Commands to run by hand later: fuchsia-checkout"
+ln -sf ~/dots/server/fuchsia-checkout.sh ~/.local/bin/fuchsia-checkout
+
 step "nvm + Node LTS"
 if [[ ! -d ~/.nvm ]]; then
     curl -fsSL "https://raw.githubusercontent.com/nvm-sh/nvm/$NVM_VERSION/install.sh" |

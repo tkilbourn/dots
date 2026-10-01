@@ -1,15 +1,19 @@
 #!/bin/bash
 # Check out fuchsia.git on a dev server, following
 # https://fuchsia.dev/fuchsia-src/get-started/get_fuchsia_source
-# Run by hand; bootstrap.sh does not run it. Safe to re-run until the
-# download starts; after that, use "jiri update" in the checkout instead.
+# Run by hand; bootstrap.sh does not run it, but links it onto PATH:
 #
-#   tmux new -s fuchsia ~/dots/server/fuchsia-checkout.sh [PARENT_DIR]
+#   fuchsia-checkout [PARENT_DIR]
 #
 # The checkout goes to PARENT_DIR/fuchsia (default: ~/fuchsia). It takes a
-# while; run it inside tmux so a dropped SSH connection does not kill it.
+# while, so the script runs itself inside a tmux session, which a dropped SSH
+# connection does not kill. Detach with Ctrl-b d; run the command again to
+# reattach. Once the download has started, update the checkout with
+# "jiri update" instead of re-running this.
 
 set -euo pipefail
+
+TMUX_SESSION=fuchsia-checkout
 
 PARENT_DIR="$(realpath "${1:-$HOME}")"
 FUCHSIA_DIR="$PARENT_DIR/fuchsia"
@@ -19,12 +23,26 @@ MIN_FREE_GB=100
 step() { printf '\n==> %s\n' "$*"; }
 die() { printf '\nERROR: %s\n' "$*" >&2; exit 1; }
 
+outside_tmux() { [[ -z "${TMUX:-}${STY:-}" && -t 0 ]]; }
+
+# Already running (or finished, and its shell still open): reattach to it.
+if outside_tmux && command -v tmux >/dev/null &&
+        tmux has-session -t "=$TMUX_SESSION" 2>/dev/null; then
+    exec tmux attach-session -t "=$TMUX_SESSION"
+fi
+
 if [[ -e "$FUCHSIA_DIR" ]]; then
     die "$FUCHSIA_DIR already exists. To update it: cd $FUCHSIA_DIR && jiri update"
 fi
 
-if [[ -z "${TMUX:-}${STY:-}" && -t 0 ]]; then
-    echo "Not running inside tmux or screen: if SSH drops, the download dies."
+if outside_tmux; then
+    if command -v tmux >/dev/null; then
+        # Rerun this script in tmux. Afterwards leave a shell in the session,
+        # so the output stays readable after the script ends.
+        exec tmux new-session -s "$TMUX_SESSION" \
+            "$(printf '%q ' "$(realpath "$0")" "$PARENT_DIR"); exec \"\${SHELL:-bash}\""
+    fi
+    echo "tmux is not installed: if SSH drops, the download dies."
     read -r -p "Continue anyway? [y/N] " answer
     [[ "$answer" == [yY]* ]] || exit 1
 fi
