@@ -137,6 +137,6 @@ cat <<'EOF'
 
 ==> Done. Still to do by hand (needs you at the keyboard), also shown at
     each SSH login until done:
-    gh auth login        # GitHub sign-in; choose HTTPS
-    sudo reboot          # restarts services the upgrade left on old binaries
+    gh auth login -h github.com -p https -w    # GitHub sign-in
+    sudo reboot                                # restarts services the upgrade left on old binaries
 EOF

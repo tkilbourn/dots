@@ -11,9 +11,9 @@ todo=""
 add() { todo="$todo    $1\n"; }
 
 grep -qs '^github.com:' "$home/.config/gh/hosts.yml" ||
-    add "gh auth login    # GitHub sign-in; choose HTTPS"
+    add "gh auth login -h github.com -p https -w    # GitHub sign-in"
 [ -e /var/run/reboot-required ] &&
-    add "sudo reboot      # finish the package upgrade"
+    add "sudo reboot                                # finish the package upgrade"
 
 [ -n "$todo" ] || exit 0
 printf '\n  Server setup still to do:\n%b' "$todo"
