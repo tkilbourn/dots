@@ -14,7 +14,9 @@ GIT_EMAIL="tkilbourn@gmail.com"
 NVM_VERSION="v0.40.3"
 SWAP_SIZE="${SWAP_SIZE:-8G}"
 
-APT=(sudo env DEBIAN_FRONTEND=noninteractive NEEDRESTART_MODE=a
+# No needrestart: under cloud-init it restarts cloud-init itself, which kills
+# this script mid-run. Reboot afterwards instead.
+APT=(sudo env DEBIAN_FRONTEND=noninteractive NEEDRESTART_SUSPEND=1
      apt-get -y -o DPkg::Lock::Timeout=600)
 
 step() { printf '\n==> %s\n' "$*"; }
@@ -120,5 +122,8 @@ cat <<'EOF'
 ==> Done. Still to do by hand (needs you at the keyboard):
     gh auth login        # GitHub sign-in; choose HTTPS
     gh auth setup-git    # lets git use that sign-in for push/pull
-    log out and back in  # picks up zsh as your shell
+    sudo reboot          # restarts services the upgrade left on old binaries
 EOF
+if [[ -e /var/run/reboot-required ]]; then
+    echo "    (the upgrade also asked for a reboot: /var/run/reboot-required)"
+fi
