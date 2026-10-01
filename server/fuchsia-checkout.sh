@@ -97,6 +97,10 @@ curl -sSf "https://fuchsia.googlesource.com/fuchsia/+/HEAD/scripts/bootstrap?for
 # The Fuchsia bootstrap deletes bootstrap.sh itself when it exits.
 bash bootstrap.sh
 
+step "Opt in to jiri analytics (stops its warning on every update)"
+# The bootstrap's own jiri update still warns, as the checkout did not exist yet.
+"$FUCHSIA_DIR/.jiri_root/bin/jiri" init -analytics-opt=true "$FUCHSIA_DIR"
+
 step "4. Environment variables (in ~/.zsh_local, where this setup keeps them)"
 if ! grep -qs 'jiri_root/bin' ~/.zsh_local; then
     cat >> ~/.zsh_local <<EOF
