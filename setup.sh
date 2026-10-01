@@ -46,7 +46,11 @@ vim_files=(colors ftdetect ftplugin functions mappings settings syntax)
 mkdir -p .vim
 for f in "${vim_files[@]}"
 do
-    if [[ -d .vim/$f ]]; then
+    # A link from an earlier run: replace it. Moving it to $f.old would put
+    # the link inside dots/ once $f.old exists.
+    if [[ -L .vim/$f ]]; then
+        rm .vim/$f
+    elif [[ -d .vim/$f ]]; then
         mv .vim/$f .vim/$f.old
     fi
     if [[ -e .vim/$f ]]; then
@@ -55,7 +59,7 @@ do
             cp .vim/$f .vim/$f.old
         fi
     fi
-    ln -sf $HOME/dots/.vim/$f .vim/$f
+    ln -sfn $HOME/dots/.vim/$f .vim/$f
 done
 mkdir -p .vim/autoload
 ln -sf $HOME/dots/vim-pathogen/autoload/pathogen.vim .vim/autoload
