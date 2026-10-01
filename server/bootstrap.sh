@@ -70,6 +70,17 @@ git config -f ~/.gitconfig_local user.name >/dev/null ||
 git config -f ~/.gitconfig_local user.email >/dev/null ||
     git config -f ~/.gitconfig_local user.email "$GIT_EMAIL"
 
+step "Git uses gh's GitHub sign-in (what 'gh auth setup-git' would add)"
+# Here and not via setup-git, which writes through the ~/.gitconfig symlink
+# into the dots repo.
+GH_HELPER_KEY="credential.https://github.com.helper"
+if ! git config -f ~/.gitconfig_local --get-all "$GH_HELPER_KEY" |
+        grep -q 'gh auth git-credential'; then
+    git config -f ~/.gitconfig_local --add "$GH_HELPER_KEY" ""
+    git config -f ~/.gitconfig_local --add "$GH_HELPER_KEY" \
+        "!$(command -v gh) auth git-credential"
+fi
+
 step "Dotfiles"
 if [[ ! -d ~/dots/.git ]]; then
     git clone --recurse-submodules https://github.com/TKilbourn/dots.git ~/dots
@@ -117,13 +128,15 @@ if ! command -v claude >/dev/null && [[ ! -x ~/.local/bin/claude ]]; then
     curl -fsSL https://claude.ai/install.sh | bash
 fi
 
+step "Login reminder for the steps left to do by hand"
+sed "s/@USER@/$USER/" ~/dots/server/motd-todo.sh |
+    sudo tee /etc/update-motd.d/99-dev-todo >/dev/null
+sudo chmod 755 /etc/update-motd.d/99-dev-todo
+
 cat <<'EOF'
 
-==> Done. Still to do by hand (needs you at the keyboard):
+==> Done. Still to do by hand (needs you at the keyboard), also shown at
+    each SSH login until done:
     gh auth login        # GitHub sign-in; choose HTTPS
-    gh auth setup-git    # lets git use that sign-in for push/pull
     sudo reboot          # restarts services the upgrade left on old binaries
 EOF
-if [[ -e /var/run/reboot-required ]]; then
-    echo "    (the upgrade also asked for a reboot: /var/run/reboot-required)"
-fi
