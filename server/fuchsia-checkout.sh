@@ -53,6 +53,14 @@ echo "$free_gb GB free in $PARENT_DIR"
 (( free_gb >= MIN_FREE_GB )) ||
     die "need at least $MIN_FREE_GB GB free (source + one build)"
 
+# Temporary files go on this disk, not /tmp. On small cloud servers /tmp is a
+# RAM-backed tmpfs where each user may fill only ~80% of half the RAM, and
+# jiri alone stages >3 GB of git clones there (/tmp/jiri-load*).
+export TMPDIR="$PARENT_DIR/.fuchsia-checkout-tmp"
+rm -rf "$TMPDIR"
+mkdir -p "$TMPDIR"
+trap 'rm -rf "$TMPDIR"' EXIT
+
 step "1. Prerequisite packages (curl, file, git >= 2.31, unzip)"
 sudo env DEBIAN_FRONTEND=noninteractive NEEDRESTART_SUSPEND=1 \
     apt-get install -y -o DPkg::Lock::Timeout=600 curl file git unzip
