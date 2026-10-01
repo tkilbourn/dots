@@ -1,0 +1,32 @@
+#cloud-config
+# Paste into the provider's "user data" / "cloud-init" field when creating an
+# Ubuntu LTS server. It does what must be in place before the first login
+# (your user, your SSH key, SSH hardening), then runs bootstrap.sh as you.
+# Progress and errors: /var/log/cloud-init-output.log on the server.
+
+users:
+  - name: tkilbourn
+    groups: [sudo]
+    shell: /bin/bash          # bootstrap.sh switches it to zsh
+    lock_passwd: true         # no password at all: SSH key only
+    sudo: "ALL=(ALL) NOPASSWD:ALL"
+    ssh_authorized_keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII1mvdGWsyVxI10psenGK1FcG5nILKa7YG9kldbK7231 tkilbourn@isaac cloud-dev 2026-10-01
+
+disable_root: true
+ssh_pwauth: false
+
+write_files:
+  # sshd takes the first value it sees, so this sorts before cloud-init's own
+  # 50-cloud-init.conf to be sure it wins.
+  - path: /etc/ssh/sshd_config.d/01-hardening.conf
+    content: |
+      PasswordAuthentication no
+      KbdInteractiveAuthentication no
+      PermitRootLogin no
+
+packages: [git]
+
+runcmd:
+  - systemctl try-reload-or-restart ssh
+  - su - tkilbourn -c 'git clone --recurse-submodules https://github.com/TKilbourn/dots.git ~/dots && ~/dots/server/bootstrap.sh'
